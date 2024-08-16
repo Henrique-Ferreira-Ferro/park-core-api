@@ -1,6 +1,5 @@
 package com.ParqueCore.ParkBeto.controller;
 
-
 import com.ParqueCore.ParkBeto.model.Atracao;
 import com.ParqueCore.ParkBeto.service.AtracaoService;
 import org.springframework.beans.factory.annotation.Autowired;
