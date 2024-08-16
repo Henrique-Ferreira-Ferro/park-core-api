@@ -18,4 +18,5 @@ public class Atracao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //Teste
 }
