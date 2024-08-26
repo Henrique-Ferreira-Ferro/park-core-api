@@ -11,8 +11,12 @@ public class AtracaoService {
     @Autowired
     private AtracaoRepository atracaoRepository;
 
-    public Atracao save(Atracao atracao) {
-        return atracaoRepository.save(atracao);
+    public void saveAtracao(Atracao atracao){
+        this.atracaoRepository.save(atracao);
+    }
+    public Atracao createAtracao(Atracao atracao){
+        this.saveAtracao(atracao);
+        return atracao;
     }
 
 }
