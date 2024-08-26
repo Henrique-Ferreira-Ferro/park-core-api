@@ -28,4 +28,9 @@ public class Evento {
 
     @ManyToMany(mappedBy = "eventos")
     private List<Visitante> participantesConfirmados;
+    
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
+    private List<Notificacao> notificacoes;
+    
+    
 }
