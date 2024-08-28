@@ -1,0 +1,15 @@
+package com.ParqueCore.ParkBeto.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ParqueCore.ParkBeto.repository.FeedbackRepository;
+
+@Service
+public class FeedbackService {
+	
+	@Autowired
+	private FeedbackRepository feedbackRepository;
+	
+	
+}
