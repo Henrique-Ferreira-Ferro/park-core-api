@@ -27,11 +27,15 @@ public class VisitanteService {
     		throw new RuntimeException("O CPF já está cadastrado no sistema!");
     	}
     	
+    	if(!verificaNumero(visitante.getTelefone())) {
+    		throw new RuntimeException("O Numero informado é invalido!");
+    	}
+    	
     	var visi = visitanteRepository.save(visitante);
     	
     	return visi;
     }
-   
+
 
 	public void excluirVisitante(Long visitanteId) {
         var visitante = visitanteRepository.findById(visitanteId)
@@ -120,6 +124,17 @@ public class VisitanteService {
     	return false;
     	
     }
+    
+    
+    private boolean verificaNumero(String telefone) {
+
+    	String regex = "(\\(?\\d{2}\\)?\\s?)?(\\d{4,5}\\-?\\d{4})";
+    	
+    	if(!telefone.matches(regex)) {
+    		return false;
+    	}
+    	return true;
+	}
     
     
 }
