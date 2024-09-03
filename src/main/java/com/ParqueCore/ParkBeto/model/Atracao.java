@@ -17,6 +17,8 @@ public class Atracao {
     private String descricao;
     private int capacidadeMaxima;
 
+
+
     @OneToMany(mappedBy = "atracao", cascade = CascadeType.ALL)
     private List<Ingresso> ingressos;
 
@@ -25,4 +27,13 @@ public class Atracao {
 
     @OneToMany(mappedBy = "atracao", cascade = CascadeType.ALL)
     private List<Evento> eventos;
+
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }
