@@ -22,7 +22,7 @@ public class VisitanteController {
     	return visitanteService.cadastrarVisitante(visitante);
     }
     
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void excluirVisitante(@PathVariable Long visitanteId) {
         visitanteService.excluirVisitante(visitanteId);
     }

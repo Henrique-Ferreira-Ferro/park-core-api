@@ -26,7 +26,7 @@ public class AtracaoService {
         }
     }
     private boolean isNomeUnique(String nome) {
-        return !atracaoRepository.existsByName(nome);
+        return !atracaoRepository.existsByNome(nome);
     }
 
 }
