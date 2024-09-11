@@ -25,4 +25,12 @@ public class AtracaoService {
         return !atracaoRepository.existsByName(nome);
     }
 
+
+    public void deleteAtracao(Long id){
+        Atracao atracao = atracaoRepository.findById(id).orElseThrow();
+        atracaoRepository.delete(atracao);
+
+    }
+
+
 }
