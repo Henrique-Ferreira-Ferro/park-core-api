@@ -1,4 +1,4 @@
-package com.ParqueCore.ParkBeto.service;
+package com.ParqueCore.ParkBeto.service.impl;
 
 import com.ParqueCore.ParkBeto.model.Atracao;
 import com.ParqueCore.ParkBeto.repository.AtracaoRepository;
