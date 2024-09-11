@@ -1,7 +1,7 @@
 package com.ParqueCore.ParkBeto.controller;
 
 import com.ParqueCore.ParkBeto.model.Visitante;
-import com.ParqueCore.ParkBeto.service.VisitanteService;
+import com.ParqueCore.ParkBeto.service.impl.VisitanteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
