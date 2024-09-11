@@ -12,19 +12,15 @@ public class AtracaoService {
     @Autowired
     private AtracaoRepository atracaoRepository;
 
-    public void saveAtracao(Atracao atracao){
-        this.atracaoRepository.save(atracao);
-    }
-
     @Transactional
     public Atracao createAtracao(Atracao atracao){
         if(isNomeUnique(atracao.getNome())){
-            this.saveAtracao(atracao);
-            return atracao;
+            return atracaoRepository.save(atracao);
         }else{
             throw new IllegalArgumentException("A atracao ja foi cadastrada");
         }
     }
+
     private boolean isNomeUnique(String nome) {
         return !atracaoRepository.existsByName(nome);
     }
