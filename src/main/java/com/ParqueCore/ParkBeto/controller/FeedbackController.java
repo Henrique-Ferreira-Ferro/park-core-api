@@ -17,7 +17,7 @@ public class FeedbackController {
 	@Autowired
 	private FeedbackService feedbackService;
 	
-	@PostMapping("/realizar")
+	@PostMapping("/avaliar")
 	public ResponseEntity<Feedback> realizarFeedback(@RequestBody Feedback feedback) {
 		return ResponseEntity.status(201).body(feedbackService.realizarFeedback(feedback));
 	}
