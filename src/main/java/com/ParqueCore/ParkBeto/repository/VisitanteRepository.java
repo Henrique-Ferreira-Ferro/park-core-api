@@ -14,4 +14,6 @@ public interface VisitanteRepository extends JpaRepository<Visitante, Long> {
 
     @Query("SELECT COUNT(f) > 0 FROM Feedback f WHERE f.visitante.id = :visitanteId")
     boolean hasFeedbacksPendentes(@Param("visitanteId") Long visitanteId);
+
+    boolean existsByCpf(String cpf);
 }

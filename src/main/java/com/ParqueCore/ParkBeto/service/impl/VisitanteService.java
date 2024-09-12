@@ -7,22 +7,22 @@ import com.ParqueCore.ParkBeto.exceptions.BadRequestException;
 import com.ParqueCore.ParkBeto.model.Visitante;
 import com.ParqueCore.ParkBeto.repository.VisitanteRepository;
 import com.ParqueCore.ParkBeto.service.VisitanteServiceInterface;
-import com.ParqueCore.ParkBeto.validation.ValidationCpf;
 
 import jakarta.persistence.EntityNotFoundException;
+
+import static com.ParqueCore.ParkBeto.validation.VisitanteValidator.validateCpfVisitante;
+import static com.ParqueCore.ParkBeto.validation.VisitanteValidator.validateTelefoneVisitante;
 
 @Service
 public class VisitanteService implements VisitanteServiceInterface {
 
     @Autowired
     private VisitanteRepository visitanteRepository;
-    
-    @Autowired
-    private ValidationCpf validadorCpf;
 
     public Visitante cadastrarVisitante(Visitante visitante) {
-       
-    	validadorCpf.verificaVisitante(visitante);
+
+        validateTelefoneVisitante(visitante);
+        validateCpfVisitante(visitante);
     	
     	return visitanteRepository.save(visitante);
     }

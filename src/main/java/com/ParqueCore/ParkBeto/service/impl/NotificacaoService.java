@@ -1,4 +1,4 @@
-package com.ParqueCore.ParkBeto.service;
+package com.ParqueCore.ParkBeto.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
