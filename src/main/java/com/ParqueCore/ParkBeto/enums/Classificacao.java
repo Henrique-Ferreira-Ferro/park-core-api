@@ -8,7 +8,7 @@ public enum Classificacao {
 	OK ("Ok"),
 	REGULAR ("Regular"),
 	RUIM ("Ruim"),
-	PÉSSIMO ("Pessimo"),
+	PESSIMO ("Pessimo"),
 	HORRIVEL ("Horrivel");
 	
 	private String classifica;
