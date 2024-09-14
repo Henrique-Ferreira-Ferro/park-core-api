@@ -15,16 +15,19 @@ public class AtracaoController {
     private AtracaoService atracaoService;
 
     @PostMapping
-    public ResponseEntity<Atracao> createAtracao(@RequestBody Atracao atracao){
+    public ResponseEntity<Atracao> createAtracao(@RequestBody Atracao atracao) {
         var newAtracao = atracaoService.createAtracao(atracao);
         return new ResponseEntity<>(newAtracao, HttpStatus.CREATED);
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteAtracao (@PathVariable Long id){
-        atracaoService.deleteAtracao(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteAtracao(@PathVariable Long id) {
+        try {
+            atracaoService.deleteAtracao(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
-
-
 }
