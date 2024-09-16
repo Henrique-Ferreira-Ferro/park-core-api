@@ -6,7 +6,6 @@ import com.ParqueCore.ParkBeto.repository.AtracaoRepository;
 import com.ParqueCore.ParkBeto.repository.EventoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,9 +33,7 @@ public class AtracaoService {
             throw new IllegalArgumentException("A atracao ja foi cadastrada");
         }
     }
-
-
-
+    
     public void deleteAtracao(Long id){
         Atracao atracao = atracaoRepository.findById(id).orElseThrow(() -> new IllegalStateException("Usuario nao encontrado"));
 
