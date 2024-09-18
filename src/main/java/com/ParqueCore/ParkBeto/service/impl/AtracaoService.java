@@ -1,8 +1,10 @@
 package com.ParqueCore.ParkBeto.service.impl;
 
+import com.ParqueCore.ParkBeto.exceptions.BadRequestException;
 import com.ParqueCore.ParkBeto.model.Atracao;
 import com.ParqueCore.ParkBeto.repository.AtracaoRepository;
-import jakarta.transaction.Transactional;
+import com.ParqueCore.ParkBeto.repository.EventoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,21 +14,29 @@ public class AtracaoService {
     @Autowired
     private AtracaoRepository atracaoRepository;
 
-    public void saveAtracao(Atracao atracao){
-        this.atracaoRepository.save(atracao);
-    }
+    @Autowired
+    private EventoRepository eventoRepository;
 
-    @Transactional
-    public Atracao createAtracao(Atracao atracao){
-        if(isNomeUnique(atracao.getNome())){
-            this.saveAtracao(atracao);
-            return atracao;
-        }else{
-            throw new IllegalArgumentException("A atracao ja foi cadastrada");
-        }
-    }
     private boolean isNomeUnique(String nome) {
+
         return !atracaoRepository.existsByNome(nome);
     }
 
+    public Atracao createAtracao(Atracao atracao) {
+        if (isNomeUnique(atracao.getNome())) {
+            return atracaoRepository.save(atracao);
+        } else {
+            throw new BadRequestException("A atracao ja foi cadastrada");
+        }
+    }
+
+    public void deleteAtracao(Long id) {
+        var atracao = atracaoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario nao encontrado"));
+        var eventos = eventoRepository.findByAtracaoId(id);
+        if (!eventos.isEmpty()) {
+            throw new BadRequestException("Atracao nao pode ser deletada pois esta associada a um evento!");
+        }
+        atracaoRepository.delete(atracao);
+    }
 }
