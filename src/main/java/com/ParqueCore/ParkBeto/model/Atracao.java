@@ -1,12 +1,15 @@
 package com.ParqueCore.ParkBeto.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Atracao {
 
     @Id
@@ -28,12 +31,7 @@ public class Atracao {
     @OneToMany(mappedBy = "atracao", cascade = CascadeType.ALL)
     private List<Evento> eventos;
 
-
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 }
