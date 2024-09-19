@@ -15,7 +15,7 @@ public class SwaggerConfiguration {
 	@Bean
 	public OpenAPI customOpenAPI() {
 		return new OpenAPI().components(new Components())
-				.info(new Info().title("Swagger").description("Documentação do Schedule"));
+				.info(new Info().title("Swagger").description("Documentação do PakBeto"));
 	}
 	
 	
