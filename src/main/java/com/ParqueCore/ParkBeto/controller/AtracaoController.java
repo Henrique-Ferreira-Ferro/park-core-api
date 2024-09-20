@@ -25,15 +25,8 @@ public class AtracaoController {
 
     @DeleteMapping
     public ResponseEntity<Void> deleteAtracao(@PathVariable Long id) {
-
-        //TODO: MIGRAR ESSA LÓGICA PARA O SERVIÇO!
-
-        try {
-            atracaoService.deleteAtracao(id);
-            return new ResponseEntity<>(NO_CONTENT);
-        } catch (IllegalStateException e) {
-            return new ResponseEntity<>(BAD_REQUEST);
-        }
+        atracaoService.deleteAtracao(id);
+        return new ResponseEntity<>(BAD_REQUEST);
 
     }
 }

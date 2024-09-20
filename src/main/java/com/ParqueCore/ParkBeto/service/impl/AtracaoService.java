@@ -31,12 +31,17 @@ public class AtracaoService {
     }
 
     public void deleteAtracao(Long id) {
+        // Verifica se a atração existe
         var atracao = atracaoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Usuario nao encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Atração não encontrada"));
+
+        // Verifica se existem eventos associados à atração
         var eventos = eventoRepository.findByAtracaoId(id);
         if (!eventos.isEmpty()) {
-            throw new BadRequestException("Atracao nao pode ser deletada pois esta associada a um evento!");
+            throw new BadRequestException("Atração não pode ser deletada, pois está associada a um evento!");
         }
+
+        // Se as verificações passarem, deleta a atração
         atracaoRepository.delete(atracao);
     }
 }
