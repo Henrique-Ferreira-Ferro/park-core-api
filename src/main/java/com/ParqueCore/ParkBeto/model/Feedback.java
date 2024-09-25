@@ -1,6 +1,15 @@
 package com.ParqueCore.ParkBeto.model;
 
-import jakarta.persistence.*;
+import com.ParqueCore.ParkBeto.enums.Classificacao;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Data
@@ -11,7 +20,7 @@ public class Feedback {
     private Long id;
 
     private String comentario;
-    private int classificacao;
+    private Classificacao classificacao;
 
     @ManyToOne
     @JoinColumn(name = "visitante_id")
