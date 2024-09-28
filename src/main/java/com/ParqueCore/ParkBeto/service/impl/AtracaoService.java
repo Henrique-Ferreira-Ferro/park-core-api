@@ -8,6 +8,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AtracaoService {
 
@@ -17,11 +19,16 @@ public class AtracaoService {
     @Autowired
     private EventoRepository eventoRepository;
 
-    private boolean isNomeUnique(String nome) {
-
-        return !atracaoRepository.existsByNome(nome);
+    public List<Atracao> listaAtracoes(){
+        return atracaoRepository.findAll();
     }
 
+
+
+
+    private boolean isNomeUnique(String nome) {
+        return !atracaoRepository.existsByNome(nome);
+    }
     public Atracao createAtracao(Atracao atracao) {
         if (isNomeUnique(atracao.getNome())) {
             return atracaoRepository.save(atracao);

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
@@ -16,6 +18,14 @@ public class AtracaoController {
 
     @Autowired
     private AtracaoService atracaoService;
+
+
+    @GetMapping
+    public ResponseEntity<List<Atracao>> listaAtracoes(){
+        List<Atracao> atracoes = atracaoService.listaAtracoes();
+        return new ResponseEntity<>(atracoes, HttpStatus.OK);
+    }
+
 
     @PostMapping
     public ResponseEntity<Atracao> createAtracao(@RequestBody Atracao atracao) {
