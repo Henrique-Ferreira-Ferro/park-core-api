@@ -1,6 +1,5 @@
 package com.ParqueCore.ParkBeto.model;
 
-import com.ParqueCore.ParkBeto.model.atracao.Atracao;
 import jakarta.persistence.*;
 import lombok.Data;
 

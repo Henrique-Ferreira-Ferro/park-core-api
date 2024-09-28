@@ -1,6 +1,6 @@
 package com.ParqueCore.ParkBeto.controller;
-import com.ParqueCore.ParkBeto.model.atracao.Atracao;
-import com.ParqueCore.ParkBeto.model.atracao.AtracaoTipo;
+import com.ParqueCore.ParkBeto.model.Atracao;
+import com.ParqueCore.ParkBeto.enums.AtracaoTipo;
 import com.ParqueCore.ParkBeto.service.impl.AtracaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

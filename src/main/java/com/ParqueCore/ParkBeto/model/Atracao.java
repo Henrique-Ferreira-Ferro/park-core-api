@@ -1,10 +1,8 @@
-package com.ParqueCore.ParkBeto.model.atracao;
+package com.ParqueCore.ParkBeto.model;
 
 
 
-import com.ParqueCore.ParkBeto.model.Evento;
-import com.ParqueCore.ParkBeto.model.Feedback;
-import com.ParqueCore.ParkBeto.model.Ingresso;
+import com.ParqueCore.ParkBeto.enums.AtracaoTipo;
 import jakarta.persistence.*;
 import lombok.Data;
 

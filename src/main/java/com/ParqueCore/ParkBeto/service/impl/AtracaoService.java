@@ -1,8 +1,8 @@
 package com.ParqueCore.ParkBeto.service.impl;
 
 import com.ParqueCore.ParkBeto.exceptions.BadRequestException;
-import com.ParqueCore.ParkBeto.model.atracao.Atracao;
-import com.ParqueCore.ParkBeto.model.atracao.AtracaoTipo;
+import com.ParqueCore.ParkBeto.model.Atracao;
+import com.ParqueCore.ParkBeto.enums.AtracaoTipo;
 import com.ParqueCore.ParkBeto.repository.AtracaoRepository;
 import com.ParqueCore.ParkBeto.repository.EventoRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -55,7 +55,6 @@ public class AtracaoService {
         // Verifica se a atração existe
         var atracao = atracaoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Atração não encontrada"));
-
         // Verifica se existem eventos associados à atração
         var eventos = eventoRepository.findByAtracaoId(id);
         if (!eventos.isEmpty()) {

@@ -1,7 +1,7 @@
 package com.ParqueCore.ParkBeto.repository;
 
-import com.ParqueCore.ParkBeto.model.atracao.Atracao;
-import com.ParqueCore.ParkBeto.model.atracao.AtracaoTipo;
+import com.ParqueCore.ParkBeto.model.Atracao;
+import com.ParqueCore.ParkBeto.enums.AtracaoTipo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
