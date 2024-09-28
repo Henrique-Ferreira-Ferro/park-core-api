@@ -19,13 +19,6 @@ public class AtracaoService {
     @Autowired
     private EventoRepository eventoRepository;
 
-    public List<Atracao> listaAtracoes(){
-        return atracaoRepository.findAll();
-    }
-
-
-
-
     private boolean isNomeUnique(String nome) {
         return !atracaoRepository.existsByNome(nome);
     }
@@ -36,6 +29,23 @@ public class AtracaoService {
             throw new BadRequestException("A atracao ja foi cadastrada");
         }
     }
+
+
+    public List<Atracao> listaAtracoes(){
+        return atracaoRepository.findAll();
+    }
+
+    public Atracao buscarPorId(long id){
+        return atracaoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Atracao nao encontrada"));
+    }
+
+    public Atracao buscarPorNome(String nome){
+        return atracaoRepository.findByNome(nome)
+                .orElseThrow(() -> new EntityNotFoundException("Atracao com o nome: '"+ nome +"' nao foi encontrada"));
+    }
+
+
 
     public void deleteAtracao(Long id) {
         // Verifica se a atração existe

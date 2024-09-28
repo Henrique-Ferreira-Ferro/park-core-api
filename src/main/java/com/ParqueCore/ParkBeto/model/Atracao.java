@@ -17,6 +17,7 @@ public class Atracao {
 
     private String nome;
     private String descricao;
+    private AtracaoTipo atracaoTipo;
     private int capacidadeMaxima;
 
 
