@@ -1,7 +1,8 @@
 package com.ParqueCore.ParkBeto.service.impl;
 
 import com.ParqueCore.ParkBeto.exceptions.BadRequestException;
-import com.ParqueCore.ParkBeto.model.Atracao;
+import com.ParqueCore.ParkBeto.model.atracao.Atracao;
+import com.ParqueCore.ParkBeto.model.atracao.AtracaoTipo;
 import com.ParqueCore.ParkBeto.repository.AtracaoRepository;
 import com.ParqueCore.ParkBeto.repository.EventoRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -44,7 +45,10 @@ public class AtracaoService {
         return atracaoRepository.findByNome(nome)
                 .orElseThrow(() -> new EntityNotFoundException("Atracao com o nome: '"+ nome +"' nao foi encontrada"));
     }
+    public List<Atracao> buscarPorTipo(AtracaoTipo tipo){
+        return atracaoRepository.findByTipo(tipo);
 
+    }
 
 
     public void deleteAtracao(Long id) {

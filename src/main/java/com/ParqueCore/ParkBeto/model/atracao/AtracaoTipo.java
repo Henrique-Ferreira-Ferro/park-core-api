@@ -1,4 +1,4 @@
-package com.ParqueCore.ParkBeto.model;
+package com.ParqueCore.ParkBeto.model.atracao;
 
 public enum AtracaoTipo {
     BRINQUEDO,

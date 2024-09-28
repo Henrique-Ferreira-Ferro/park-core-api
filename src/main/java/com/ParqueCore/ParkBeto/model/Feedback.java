@@ -2,6 +2,7 @@ package com.ParqueCore.ParkBeto.model;
 
 import com.ParqueCore.ParkBeto.enums.Classificacao;
 
+import com.ParqueCore.ParkBeto.model.atracao.Atracao;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

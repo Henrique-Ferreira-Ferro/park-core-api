@@ -1,7 +1,10 @@
-package com.ParqueCore.ParkBeto.model;
+package com.ParqueCore.ParkBeto.model.atracao;
 
 
 
+import com.ParqueCore.ParkBeto.model.Evento;
+import com.ParqueCore.ParkBeto.model.Feedback;
+import com.ParqueCore.ParkBeto.model.Ingresso;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,8 +19,12 @@ public class Atracao {
     private Long id;
 
     private String nome;
+
     private String descricao;
-    private AtracaoTipo atracaoTipo;
+
+    @Enumerated(EnumType.STRING)
+    private AtracaoTipo tipo;
+
     private int capacidadeMaxima;
 
 

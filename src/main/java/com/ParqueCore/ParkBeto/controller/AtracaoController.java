@@ -1,5 +1,6 @@
 package com.ParqueCore.ParkBeto.controller;
-import com.ParqueCore.ParkBeto.model.Atracao;
+import com.ParqueCore.ParkBeto.model.atracao.Atracao;
+import com.ParqueCore.ParkBeto.model.atracao.AtracaoTipo;
 import com.ParqueCore.ParkBeto.service.impl.AtracaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,11 @@ public class AtracaoController {
         return new ResponseEntity<>(atracao, HttpStatus.OK);
     }
     //Busca por tipo
+    @GetMapping("/atracaoTipo/{tipo}")
+    public ResponseEntity<List<Atracao>> buscarPorTipo(@PathVariable AtracaoTipo tipo){
+        var atracao = atracaoService.buscarPorTipo(tipo);
+        return new ResponseEntity<>(atracao, HttpStatus.OK);
+    }
 
 
     @PostMapping
