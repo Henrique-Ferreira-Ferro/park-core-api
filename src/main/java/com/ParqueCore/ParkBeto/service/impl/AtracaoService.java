@@ -18,25 +18,31 @@ public class AtracaoService {
     private EventoRepository eventoRepository;
 
     private boolean isNomeUnique(String nome) {
-
         return !atracaoRepository.existsByNome(nome);
     }
+
+    private boolean hasAssociatedEvents(Long atracaoId) {
+        return !eventoRepository.findByAtracaoId(atracaoId).isEmpty();
+    }
+
 
     public Atracao createAtracao(Atracao atracao) {
         if (isNomeUnique(atracao.getNome())) {
             return atracaoRepository.save(atracao);
         } else {
-            throw new BadRequestException("A atracao ja foi cadastrada");
+            throw new BadRequestException("A atração com o nome '" + atracao.getNome() + "' já foi cadastrada.");
         }
     }
 
+
     public void deleteAtracao(Long id) {
         var atracao = atracaoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Usuario nao encontrado"));
-        var eventos = eventoRepository.findByAtracaoId(id);
-        if (!eventos.isEmpty()) {
-            throw new BadRequestException("Atracao nao pode ser deletada pois esta associada a um evento!");
+                .orElseThrow(() -> new EntityNotFoundException("Atração com ID " + id + " não foi encontrada."));
+
+        if (hasAssociatedEvents(id)) {
+            throw new BadRequestException("A atração não pode ser deletada pois está associada a um ou mais eventos.");
         }
+
         atracaoRepository.delete(atracao);
     }
 }
