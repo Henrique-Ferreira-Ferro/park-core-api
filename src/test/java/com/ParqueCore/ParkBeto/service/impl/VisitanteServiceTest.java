@@ -1,11 +1,9 @@
 package com.ParqueCore.ParkBeto.service.impl;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.ParqueCore.ParkBeto.repository.VisitanteRepository;
@@ -19,18 +17,14 @@ public class VisitanteServiceTest {
 	@InjectMocks
 	private VisitanteService visitanteService;
 	
-	@BeforeEach
-	void setup() {
-		MockitoAnnotations.initMocks(this);
-	}
 	
 	@Test
-	void shouldCadastrarVisitante() {
+	public void shouldCadastrarVisitante() {
 		
 	}
 	
 	@Test 
-	void shouldExcluirVisitante() {
+	public void shouldExcluirVisitante() {
 		
 	}
 	

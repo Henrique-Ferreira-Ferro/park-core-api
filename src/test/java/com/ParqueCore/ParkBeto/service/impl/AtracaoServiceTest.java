@@ -1,11 +1,9 @@
 package com.ParqueCore.ParkBeto.service.impl;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.ParqueCore.ParkBeto.repository.AtracaoRepository;
@@ -23,18 +21,13 @@ public class AtracaoServiceTest {
 	@InjectMocks
 	private AtracaoService atracao;
 	
-	@BeforeEach
-	void setup() {
-		MockitoAnnotations.initMocks(this);
-	}
-	
 	@Test
-	void shouldVerifyisNomeUnique() {
+	public void shouldVerifyisNomeUnique() {
 		
 	}
 	
 	@Test
-	void shouldCreateAtracao() {
+	public void shouldCreateAtracao() {
 		
 	}
 	

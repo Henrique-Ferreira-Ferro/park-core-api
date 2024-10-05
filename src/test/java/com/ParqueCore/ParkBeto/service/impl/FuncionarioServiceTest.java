@@ -1,10 +1,8 @@
 package com.ParqueCore.ParkBeto.service.impl;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.ParqueCore.ParkBeto.repository.FuncionarioRepository;
@@ -18,10 +16,6 @@ public class FuncionarioServiceTest {
 	@InjectMocks
 	private FuncionarioService funcionarioService;
 	
-	@BeforeEach
-	void setup() {
-		MockitoAnnotations.initMocks(this);
-	}
 	
 	
 	
