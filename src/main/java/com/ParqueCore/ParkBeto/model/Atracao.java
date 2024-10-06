@@ -36,7 +36,4 @@ public class Atracao {
     @OneToMany(mappedBy = "atracao", cascade = CascadeType.ALL)
     private List<Evento> eventos;
 
-    public String getNome() {
-        return nome;
-    }
 }

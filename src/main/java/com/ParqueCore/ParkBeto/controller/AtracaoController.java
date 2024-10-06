@@ -38,6 +38,15 @@ public class AtracaoController {
     }
 
     //Busca por tipo
+    @Operation(summary = "Buscar por tipo de atração", description = "Funcionalidade responsável por listar atrações com base no tipo especificado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Atrações encontradas com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Atracao.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "Nenhuma atração encontrada para o tipo especificado")
+    })
     @GetMapping("/atracaoTipo/{tipo}")
     public ResponseEntity<List<Atracao>> buscarPorTipo(@PathVariable AtracaoTipo tipo){
         var atracao = atracaoService.buscarPorTipo(tipo);
