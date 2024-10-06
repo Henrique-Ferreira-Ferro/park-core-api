@@ -40,11 +40,7 @@ public class AtracaoService {
         return atracaoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Atracao nao encontrada"));
     }
-
-    public Atracao buscarPorNome(String nome){
-        return atracaoRepository.findByNome(nome)
-                .orElseThrow(() -> new EntityNotFoundException("Atracao com o nome: '"+ nome +"' nao foi encontrada"));
-    }
+    
     public List<Atracao> buscarPorTipo(AtracaoTipo tipo){
         return atracaoRepository.findByTipo(tipo);
 

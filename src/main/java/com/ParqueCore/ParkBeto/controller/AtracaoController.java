@@ -36,12 +36,7 @@ public class AtracaoController {
         var atracao = atracaoService.buscarPorId(id);
         return new ResponseEntity<>(atracao, HttpStatus.OK);
     }
-    //Busca por nome
-    @GetMapping("/nome/{nome}")
-    public ResponseEntity<Atracao> buscarPorNome(@PathVariable String nome){
-        var atracao = atracaoService.buscarPorNome(nome);
-        return new ResponseEntity<>(atracao, HttpStatus.OK);
-    }
+
     //Busca por tipo
     @GetMapping("/atracaoTipo/{tipo}")
     public ResponseEntity<List<Atracao>> buscarPorTipo(@PathVariable AtracaoTipo tipo){

@@ -13,8 +13,5 @@ public interface AtracaoRepository extends JpaRepository<Atracao, Long>{
     boolean existsByNome(String nome);
 
 
-    Optional<Atracao> findByNome(String nome);
-
-
     List<Atracao> findByTipo(AtracaoTipo tipo);
 }
