@@ -1,12 +1,10 @@
 package com.ParqueCore.ParkBeto.model;
-
-
-
 import com.ParqueCore.ParkBeto.enums.AtracaoTipo;
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.util.List;
+
+
 
 @Entity
 @Data
