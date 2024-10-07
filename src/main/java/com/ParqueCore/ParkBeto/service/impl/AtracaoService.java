@@ -28,13 +28,19 @@ public class AtracaoService {
         return !atracaoRepository.existsByNome(nome);
     }
 
+    private boolean hasAssociatedEvents(Long atracaoId) {
+        return !eventoRepository.findByAtracaoId(atracaoId).isEmpty();
+    }
+
+
     public Atracao createAtracao(Atracao atracao) {
         if (!isNomeUnique(atracao.getNome())) {
             throw new BadRequestException("Erro ao criar atração: A atração com o nome '" + atracao.getNome() + "' já existe no sistema.");
-        }
+      }
         return atracaoRepository.save(atracao);
     }
 
+      
     public List<Atracao> listaAtracoes() {
         return atracaoRepository.findAll();
     }
