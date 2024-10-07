@@ -30,7 +30,7 @@ public class AtracaoService {
 
     public Atracao createAtracao(Atracao atracao) {
         if (!isNomeUnique(atracao.getNome())) {
-            throw new BadRequestException("Atração com o nome '" + atracao.getNome() + "' já existe.");
+            throw new BadRequestException("Erro ao criar atração: A atração com o nome '" + atracao.getNome() + "' já existe no sistema.");
         }
         return atracaoRepository.save(atracao);
     }
@@ -41,14 +41,14 @@ public class AtracaoService {
 
     public Atracao buscarPorId(long id) {
         return atracaoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Atracao nao encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Erro ao buscar atração: Atração com ID " + id + " não foi encontrada."));
     }
 
     public List<Atracao> buscarPorTipo(AtracaoTipo tipo) {
         List<Atracao> atracoes = atracaoRepository.findByTipo(tipo);
         // Se a lista estiver vazia, lança a exceção customizada
         if (atracoes.isEmpty()) {
-            throw new NoContentException("Nenhuma atração encontrada para o tipo especificado.");
+            throw new NoContentException("Nenhuma atração do tipo '" + tipo + "' foi encontrada no sistema.");
         }
         return atracoes;
     }
@@ -60,7 +60,7 @@ public class AtracaoService {
         Atracao atracao = buscarPorId(id);
         // Verifica se existem eventos associados à atração
         if (!eventoRepository.findByAtracaoId(id).isEmpty()) {
-            throw new BadRequestException("Atração não pode ser deletada, pois está associada a um evento!");
+            throw new BadRequestException("Erro ao deletar atração: Atração com ID " + id + " não pode ser deletada, pois está associada a um ou mais eventos.");
         }
         // Deleta a atração se não houver eventos associados
         atracaoRepository.delete(atracao);
