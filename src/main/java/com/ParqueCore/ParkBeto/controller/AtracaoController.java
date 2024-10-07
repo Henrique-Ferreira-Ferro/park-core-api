@@ -22,7 +22,12 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 public class AtracaoController {
 
     @Autowired
-    private AtracaoService atracaoService;
+    private final AtracaoService atracaoService;
+
+    // Construtor para injeção de dependência
+    public AtracaoController(AtracaoService atracaoService) {
+        this.atracaoService = atracaoService;
+    }
 
     //Listar todas as atracoes
     @GetMapping
@@ -68,7 +73,7 @@ public class AtracaoController {
         return new ResponseEntity<>(newAtracao, HttpStatus.CREATED);
     }
 
-    //metodo de deletar uma atracao
+    //Metodo para deletar uma atracao
     @Operation(summary = "Deletar atração", description = "Funcionalidade responsavel por deletar uma atração por ID")
     @ApiResponses(value = {
     		@ApiResponse(responseCode = "200", description = "",
