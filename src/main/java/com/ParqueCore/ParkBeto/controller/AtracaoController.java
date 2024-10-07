@@ -52,7 +52,7 @@ public class AtracaoController {
         var atracao = atracaoService.buscarPorTipo(tipo);
         return new ResponseEntity<>(atracao, HttpStatus.OK);
     }
-
+    //Metodo de criar uma atracao
     @Operation(summary = "Criar atração", description = "Funcionalidade responsavel por criar uma nova atração")
     @ApiResponses(value = {
     		@ApiResponse(responseCode = "200", description = "Atração criada com sucesso!",
@@ -62,14 +62,13 @@ public class AtracaoController {
     			),
     		@ApiResponse(responseCode = "400", description= "A atracao ja foi cadastrada")
     })
-
     @PostMapping
     public ResponseEntity<Atracao> createAtracao(@RequestBody Atracao atracao) {
         Atracao newAtracao = atracaoService.createAtracao(atracao);
         return new ResponseEntity<>(newAtracao, HttpStatus.CREATED);
     }
 
-    
+    //metodo de deletar uma atracao
     @Operation(summary = "Deletar atração", description = "Funcionalidade responsavel por deletar uma atração por ID")
     @ApiResponses(value = {
     		@ApiResponse(responseCode = "200", description = "",

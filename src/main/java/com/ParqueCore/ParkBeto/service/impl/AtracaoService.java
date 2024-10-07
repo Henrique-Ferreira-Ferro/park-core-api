@@ -7,6 +7,8 @@ import com.ParqueCore.ParkBeto.repository.AtracaoRepository;
 import com.ParqueCore.ParkBeto.repository.EventoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import com.ParqueCore.ParkBeto.exceptions.NoContentException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,21 +45,25 @@ public class AtracaoService {
     }
 
     public List<Atracao> buscarPorTipo(AtracaoTipo tipo) {
-        return atracaoRepository.findByTipo(tipo);
+        List<Atracao> atracoes = atracaoRepository.findByTipo(tipo);
+        // Se a lista estiver vazia, lança a exceção customizada
+        if (atracoes.isEmpty()) {
+            throw new NoContentException("Nenhuma atração encontrada para o tipo especificado.");
+        }
+        return atracoes;
     }
 
+    // Método de deleção encapsulado em transação
+    @Transactional
     public void deleteAtracao(Long id) {
-        // Verifica se a atração existe
-        var atracao = atracaoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Atração não encontrada"));
-
+        // Busca a atração pelo ID
+        Atracao atracao = buscarPorId(id);
         // Verifica se existem eventos associados à atração
-        var eventos = eventoRepository.findByAtracaoId(id);
-        if (!eventos.isEmpty()) {
+        if (!eventoRepository.findByAtracaoId(id).isEmpty()) {
             throw new BadRequestException("Atração não pode ser deletada, pois está associada a um evento!");
         }
-
-        // Se as verificações passarem, deleta a atração
+        // Deleta a atração se não houver eventos associados
         atracaoRepository.delete(atracao);
     }
+
 }
