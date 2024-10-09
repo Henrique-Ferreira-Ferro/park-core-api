@@ -2,14 +2,11 @@ package com.ParqueCore.ParkBeto.controller;
 
 import com.ParqueCore.ParkBeto.model.Evento;
 import com.ParqueCore.ParkBeto.service.impl.EventoService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,22 +19,23 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RequestMapping("/evento")
 public class EventoController {
 
-	@Autowired
-	private EventoService eventoService;
-	
-	@Operation(summary = "Criar um evento", description = "Essa funcionalidade é responsavel por criar um evento!")
+	private final EventoService eventoService;
+
+	public EventoController(EventoService eventoService) {
+		this.eventoService = eventoService;
+	}
+
+	@Operation(summary = "Criar um evento", description = "Essa funcionalidade é responsável por criar um novo evento no sistema.")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Evento criado com sucesso",
+			@ApiResponse(responseCode = "201", description = "Evento criado com sucesso",
 					content = @Content(mediaType = "application/json",
-					schema = @Schema(implementation = Evento.class)
-				)
-			),
-			@ApiResponse(responseCode = "400", description = "Não foi possivel criar o evento")
+							schema = @Schema(implementation = Evento.class))),
+			@ApiResponse(responseCode = "400", description = "Não foi possível criar o evento"),
+			@ApiResponse(responseCode = "500", description = "Erro interno no servidor")
 	})
 	@PostMapping
 	public ResponseEntity<Evento> createEvento(@RequestBody Evento evento) {
-		var newEvento = eventoService.createEvento(evento);
-		return new ResponseEntity<>(newEvento, CREATED);
+		var novoEvento = eventoService.createEvento(evento);
+		return ResponseEntity.status(CREATED).body(novoEvento);
 	}
-
 }
