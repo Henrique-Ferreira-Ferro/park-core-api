@@ -1,41 +1,39 @@
 package com.ParqueCore.ParkBeto.service.impl;
 
-import static com.ParqueCore.ParkBeto.validation.VisitanteValidator.validateCpfVisitante;
-import static com.ParqueCore.ParkBeto.validation.VisitanteValidator.validateTelefoneVisitante;
-
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.ParqueCore.ParkBeto.exceptions.BadRequestException;
 import com.ParqueCore.ParkBeto.model.Visitante;
 import com.ParqueCore.ParkBeto.repository.VisitanteRepository;
 import com.ParqueCore.ParkBeto.service.VisitanteServiceInterface;
+import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
+import static com.ParqueCore.ParkBeto.validation.VisitanteValidator.validateCpfVisitante;
+import static com.ParqueCore.ParkBeto.validation.VisitanteValidator.validateTelefoneVisitante;
 
 @Service
-@AllArgsConstructor
 public class VisitanteService implements VisitanteServiceInterface {
 
+    private final VisitanteRepository visitanteRepository;
 
-	private VisitanteRepository visitanteRepository;
-
-    
-    public Visitante cadastrarVisitante(Visitante visitante) {
-
-        validateTelefoneVisitante(visitante);
-        validateCpfVisitante(visitante);
-    	
-    	return visitanteRepository.save(visitante);
+    public VisitanteService(VisitanteRepository visitanteRepository) {
+        this.visitanteRepository = visitanteRepository;
     }
 
+    public Visitante cadastrarVisitante(Visitante visitante) {
+        validateCpfVisitante(visitante);
+        validateTelefoneVisitante(visitante);
+        return visitanteRepository.save(visitante);
+    }
 
-
-	public void excluirVisitante(Long visitanteId) {
+    public void excluirVisitante(Long visitanteId) {
         var visitante = visitanteRepository.findById(visitanteId)
-                .orElseThrow(() -> new EntityNotFoundException("Visitante não encontrado"));
+                .orElseThrow(() -> new BadRequestException("Visitante não encontrado"));
 
+        verificarExclusao(visitanteId);
+
+        visitanteRepository.delete(visitante);
+    }
+
+    private void verificarExclusao(Long visitanteId) {
         if (visitanteRepository.hasIngressos(visitanteId)) {
             throw new BadRequestException("Não é possível remover o visitante com ingressos comprados");
         }
@@ -43,14 +41,5 @@ public class VisitanteService implements VisitanteServiceInterface {
         if (visitanteRepository.hasFeedbacksPendentes(visitanteId)) {
             throw new BadRequestException("Não é possível remover o visitante com avaliações pendentes");
         }
-
-        visitanteRepository.delete(visitante);
     }
-    
-	
-	
-
-	
-
-	
 }

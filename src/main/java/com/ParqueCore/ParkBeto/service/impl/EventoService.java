@@ -1,19 +1,19 @@
 package com.ParqueCore.ParkBeto.service.impl;
 
 import com.ParqueCore.ParkBeto.model.Evento;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.ParqueCore.ParkBeto.repository.EventoRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EventoService {
-	
-	@Autowired
-	private EventoRepository eventoRepository;
 
-	public Evento createEvento(Evento evento){
-		return eventoRepository.save(evento);
+	private final EventoRepository eventoRepository;
+
+	public EventoService(EventoRepository eventoRepository) {
+		this.eventoRepository = eventoRepository;
 	}
 
+	public Evento createEvento(Evento evento) {
+		return eventoRepository.save(evento);
+	}
 }
