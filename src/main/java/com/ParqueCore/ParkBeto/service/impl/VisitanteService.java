@@ -1,5 +1,9 @@
 package com.ParqueCore.ParkBeto.service.impl;
 
+import static com.ParqueCore.ParkBeto.validation.VisitanteValidator.validateCpfVisitante;
+import static com.ParqueCore.ParkBeto.validation.VisitanteValidator.validateTelefoneVisitante;
+
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,15 +14,14 @@ import com.ParqueCore.ParkBeto.service.VisitanteServiceInterface;
 
 import jakarta.persistence.EntityNotFoundException;
 
-import static com.ParqueCore.ParkBeto.validation.VisitanteValidator.validateCpfVisitante;
-import static com.ParqueCore.ParkBeto.validation.VisitanteValidator.validateTelefoneVisitante;
-
 @Service
+@AllArgsConstructor
 public class VisitanteService implements VisitanteServiceInterface {
 
-    @Autowired
-    private VisitanteRepository visitanteRepository;
 
+	private VisitanteRepository visitanteRepository;
+
+    
     public Visitante cadastrarVisitante(Visitante visitante) {
 
         validateTelefoneVisitante(visitante);
