@@ -5,16 +5,16 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.ParqueCore.ParkBeto.model.Visitante;
 import com.ParqueCore.ParkBeto.repository.VisitanteRepository;
 
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class VisitanteServiceTest {
 	
 	@Mock
@@ -36,7 +36,7 @@ public class VisitanteServiceTest {
 		//simula uma ação
 		given(visitante.getId()).willReturn(1l);
 		given(visitante.getEmail()).willReturn("henrique@gmail.com");
-		given(visitante.getCpf()).willReturn("48574498911");
+		given(visitante.getCpf()).willReturn("83735288065");
 		given(visitante.getNome()).willReturn("Henrique");
 		given(visitante.getTelefone()).willReturn("11947542211");
 		
