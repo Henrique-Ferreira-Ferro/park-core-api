@@ -31,12 +31,6 @@ public class AtracaoController {
         return ResponseEntity.ok(atracoes);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Atracao> buscarPorId(@PathVariable Long id) {
-        var atracao = atracaoService.buscarPorId(id);
-        return ResponseEntity.ok(atracao);
-    }
-
     @Operation(summary = "Buscar por tipo de atração")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Atrações encontradas com sucesso",
