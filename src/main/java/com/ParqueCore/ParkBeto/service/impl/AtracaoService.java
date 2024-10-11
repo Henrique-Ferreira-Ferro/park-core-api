@@ -6,6 +6,7 @@ import com.ParqueCore.ParkBeto.exceptions.NoContentException;
 import com.ParqueCore.ParkBeto.model.Atracao;
 import com.ParqueCore.ParkBeto.repository.AtracaoRepository;
 import com.ParqueCore.ParkBeto.repository.EventoRepository;
+import com.ParqueCore.ParkBeto.service.AtracaoServiceInterface;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class AtracaoService {
+public class AtracaoService implements AtracaoServiceInterface {
 
     private final AtracaoRepository atracaoRepository;
     private final EventoRepository eventoRepository;
