@@ -25,5 +25,4 @@ public class VisitanteValidator {
             throw new RuntimeException("O número informado é inválido!");
         }
     }
-
 }
