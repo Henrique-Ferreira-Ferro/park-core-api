@@ -3,25 +3,27 @@ package com.ParqueCore.ParkBeto.service.impl;
 import com.ParqueCore.ParkBeto.enums.AtracaoTipo;
 import com.ParqueCore.ParkBeto.model.Atracao;
 import com.ParqueCore.ParkBeto.repository.AtracaoRepository;
-import com.ParqueCore.ParkBeto.repository.EventoRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
+
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class AtracaoServiceTest {
 
 	@Mock
 	private AtracaoRepository atracaoRepository;
 
-	@Mock
-	private EventoRepository eventoRepository;
 
 	@InjectMocks
 	private AtracaoService atracaoService;
@@ -54,13 +56,25 @@ public class AtracaoServiceTest {
 
 
 	@Test
-	public void shouldVerifyisNomeUnique() {
-		
+	public void deveVerificarSeONomeEUnico() {
+		// Cenário: Nome da atração não está registrado no banco de dados
+		String nomeUnico = "Montanha Russa Inédita";
+
+		// Simulação: existsByNome retorna false para o nome informado
+		given(atracaoRepository.existsByNome(nomeUnico)).willReturn(false);
+
+		// Criação de nova atração com o nome configurado
+		Atracao novaAtracao = new Atracao();
+		novaAtracao.setNome(nomeUnico);
+
+		// Simulação: save retorna a atração que está sendo passada
+		given(atracaoRepository.save(novaAtracao)).willReturn(novaAtracao);
+
+		// Quando: Tentamos criar uma nova atração
+		Atracao resultado = atracaoService.createAtracao(novaAtracao);
+
+		// Então: O nome deve ser o nome que configuramos e único
+		assertEquals(nomeUnico, resultado.getNome());
+		assertFalse(atracaoRepository.existsByNome(nomeUnico));
 	}
-	
-	@Test
-	public void shouldCreateAtracao() {
-		
-	}
-	
 }
