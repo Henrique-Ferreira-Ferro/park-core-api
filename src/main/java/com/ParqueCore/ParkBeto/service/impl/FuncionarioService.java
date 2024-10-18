@@ -1,5 +1,6 @@
 package com.ParqueCore.ParkBeto.service.impl;
 
+import com.ParqueCore.ParkBeto.exceptions.BadRequestException;
 import com.ParqueCore.ParkBeto.model.Funcionario;
 import com.ParqueCore.ParkBeto.repository.FuncionarioRepository;
 import com.ParqueCore.ParkBeto.service.FuncionarioServiceInterface;
@@ -19,7 +20,7 @@ public class FuncionarioService implements FuncionarioServiceInterface {
 
 	public Funcionario cadastrarFuncionario(Funcionario funcionario) {
 		if (funcionarioRepository.existsByCpf(funcionario.getCpf())) {
-			throw new RuntimeException("CPF já cadastrado.");
+			throw new BadRequestException("CPF já cadastrado.");
 		}
 		return funcionarioRepository.save(funcionario);
 	}

@@ -1,9 +1,12 @@
 package com.ParqueCore.ParkBeto.service.impl;
 
+import com.ParqueCore.ParkBeto.model.Atracao;
 import com.ParqueCore.ParkBeto.model.Ingresso;
+import com.ParqueCore.ParkBeto.model.Visitante;
 import com.ParqueCore.ParkBeto.repository.AtracaoRepository;
 import com.ParqueCore.ParkBeto.repository.IngressoRepository;
 import com.ParqueCore.ParkBeto.repository.VisitanteRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -25,10 +28,10 @@ public class IngressoService {
 
 	public Ingresso emitirIngresso(Ingresso ingressoRequest) {
 		var visitante = visitanteRepository.findById(ingressoRequest.getVisitante().getId())
-				.orElseThrow(() -> new RuntimeException("Visitante não encontrado"));
+				.orElseThrow(() -> new ObjectNotFoundException("Visitante não encontrado", Visitante.class));
 
 		var atracao = atracaoRepository.findById(ingressoRequest.getAtracao().getId())
-				.orElseThrow(() -> new RuntimeException("Atracao nao encontrada"));
+				.orElseThrow(() -> new ObjectNotFoundException("Atracao nao encontrada", Atracao.class));
 
 		var ingresso = new Ingresso();
 

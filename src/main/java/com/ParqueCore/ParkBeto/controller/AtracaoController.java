@@ -25,6 +25,12 @@ public class AtracaoController {
         this.atracaoService = atracaoService;
     }
 
+    @Operation(summary = "Buscar atrações")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Atrações encontradas com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Atracao.class))),
+    })
     @GetMapping
     public ResponseEntity<List<Atracao>> listaAtracoes() {
         var atracoes = atracaoService.listaAtracoes();
