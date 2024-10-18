@@ -3,6 +3,8 @@ package com.ParqueCore.ParkBeto.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 @Entity
 public class Ingresso {
@@ -12,6 +14,10 @@ public class Ingresso {
 
     private String codigo;
     private String tipoIngresso;
+    private Date dataEmissao;
+    private String tipo;
+    private String status;
+    private Date dataVisita;
 
     @ManyToOne
     @JoinColumn(name = "visitante_id", nullable = false)
