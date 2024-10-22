@@ -33,33 +33,24 @@ public class FuncionarioServiceTest {
 	@Test
 	public void deveCadastrarFuncionario() {
 		var funcionario = mock(Funcionario.class);
-		
 		given(funcionario.getCpf()).willReturn("13684726052");
-		
 		given(funcionarioRepository.save(funcionario)).willReturn(funcionario);
-		
 		var result = funcionarioService.cadastrarFuncionario(funcionario);
-		
-		
 		assertEquals("13684726052", result.getCpf());
 	}
 
 	@Test
 	public void deveAtualizarFuncionario() {
-
 		// Init - Simulando o funcionário existente
 		var funcionarioExistente = mock(Funcionario.class);
-
 		given(funcionarioExistente.getId()).willReturn(1L);
 		given(funcionarioExistente.getNome()).willReturn("Henrique F");
 		given(funcionarioExistente.getCargo()).willReturn("Auxiliar");
 		given(funcionarioExistente.getHorarioTrabalho()).willReturn(55);
-
 		given(funcionarioRepository.save(funcionarioExistente)).willReturn(funcionarioExistente);
 		// Simulação dos dados do funcionário existente
 		given(funcionarioExistente.getId()).willReturn(1L);
 		given(funcionarioRepository.findById(1L)).willReturn(Optional.of(funcionarioExistente));
-
 		// Init - Simulando o funcionário modificado
 		//A que se dane fiquei perdido aqui. Não funciona passar funcionarioMod no given abaixo
 		var funcionarioMod = mock(Funcionario.class);
@@ -67,24 +58,19 @@ public class FuncionarioServiceTest {
 		given(funcionarioExistente.getNome()).willReturn("Henrique");
 		given(funcionarioExistente.getCargo()).willReturn("Auxiliar");
 		given(funcionarioExistente.getHorarioTrabalho()).willReturn(55);
-
 		// Simulação do salvamento do funcionário modificado
 		given(funcionarioRepository.save(funcionarioExistente)).willReturn(funcionarioExistente);
-
 		// Action - Atualizar o funcionário
 		var result =funcionarioService.atualizarFuncionario(1L, funcionarioMod);
-
 		assertEquals(1L, result.getId());
 		assertEquals("Henrique", result.getNome());
 		assertEquals("Auxiliar", result.getCargo());
 		assertEquals(55, result.getHorarioTrabalho());
-
 	}
 
 	@Test
 	public void deveRemoverFuncionario(){
 		var funcionario = mock(Funcionario.class);
-
 		given(funcionario.getId()).willReturn(1L);
 		given(funcionarioRepository.findById(funcionario.getId())).willReturn(Optional.of(funcionario));
 		funcionarioService.removerFuncionario(1L);
@@ -99,19 +85,10 @@ public class FuncionarioServiceTest {
 
 	@Test
 	public void deveLancarExcecaoQuandoHouverCpfJaCadastrado(){
-
 		var funcionario = mock(Funcionario.class);
-
 		given(funcionario.getCpf()).willReturn("13684726052");
-
 		given(funcionarioRepository.existsByCpf("13684726052")).willReturn(true);
-
 		thenThrownBy(() -> funcionarioService.cadastrarFuncionario(funcionario)).isInstanceOf(RuntimeException.class);
-
 	}
-
-
-
-
 	
 }
