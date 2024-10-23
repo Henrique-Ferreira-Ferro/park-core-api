@@ -49,7 +49,6 @@ public class FuncionarioServiceTest {
 		given(funcionarioExistente.getHorarioTrabalho()).willReturn(55);
 		given(funcionarioRepository.save(funcionarioExistente)).willReturn(funcionarioExistente);
 		// Simulação dos dados do funcionário existente
-		given(funcionarioExistente.getId()).willReturn(1L);
 		given(funcionarioRepository.findById(1L)).willReturn(Optional.of(funcionarioExistente));
 		// Init - Simulando o funcionário modificado
 		//A que se dane fiquei perdido aqui. Não funciona passar funcionarioMod no given abaixo
@@ -79,7 +78,9 @@ public class FuncionarioServiceTest {
 	@Test
 	public void deveListarFuncionarios(){
 		var funcionario = mock(Funcionario.class);
-		given(funcionarioRepository.findAll()).willReturn(List.of(funcionario));
+		var funcionario2 = mock(Funcionario.class);
+		var funcionario3 = mock(Funcionario.class);
+		given(funcionarioRepository.findAll()).willReturn(List.of(funcionario,funcionario2,funcionario3));
 		funcionarioService.listarFuncionarios();
 	}
 
