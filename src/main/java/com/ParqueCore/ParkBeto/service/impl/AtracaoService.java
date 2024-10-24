@@ -28,7 +28,7 @@ public class AtracaoService implements AtracaoServiceInterface {
         return !atracaoRepository.existsByNome(nome);
     }
 
-    private boolean hasAssociatedEvents(Long id) {
+    public boolean hasAssociatedEvents(Long id) {
         return !eventoRepository.findByAtracaoId(id).isEmpty();
     }
 
