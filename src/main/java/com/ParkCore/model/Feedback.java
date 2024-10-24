@@ -1,15 +1,7 @@
 package com.ParkCore.model;
 
-import com.ParkCore.enums.Classificacao;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import com.ParkCore.enums.Classification;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -19,18 +11,18 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String comentario;
-    private Classificacao classificacao;
+    private String comment;
+    private Classification classification;
 
     @ManyToOne
-    @JoinColumn(name = "visitante_id")
-    private Visitante visitante;
+    @JoinColumn(name = "visitor_id")
+    private Visitor visitor;
 
     @ManyToOne
-    @JoinColumn(name = "atracao_id")
-    private Atracao atracao;
+    @JoinColumn(name = "attraction_id")
+    private Attraction attraction;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "avaliacao_id", referencedColumnName = "id")
-    private Avaliacao avaliacao;
+    @JoinColumn(name = "evaluation_id", referencedColumnName = "id")
+    private Evaluation evaluation;
 }

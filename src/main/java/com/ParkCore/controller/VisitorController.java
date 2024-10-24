@@ -1,7 +1,7 @@
 package com.ParkCore.controller;
 
-import com.ParkCore.model.Visitante;
-import com.ParkCore.service.impl.VisitanteService;
+import com.ParkCore.model.Visitor;
+import com.ParkCore.service.VisitorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,22 +16,22 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RequestMapping("/visitors")
 public class VisitorController {
 
-    private final VisitanteService visitanteService;
+    private final VisitorService visitorService;
 
-    public VisitorController(VisitanteService visitanteService) {
-        this.visitanteService = visitanteService;
+    public VisitorController(VisitorService visitorService) {
+        this.visitorService = visitorService;
     }
 
     @Operation(summary = "Create a visitor", description = "This functionality registers a new visitor in the system.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Visitor registered successfully!",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Visitante.class))),
+                            schema = @Schema(implementation = Visitor.class))),
             @ApiResponse(responseCode = "400", description = "Problem registering the visitor!")
     })
     @PostMapping("/register")
-    public ResponseEntity<Visitante> registerVisitor(@RequestBody Visitante visitorRequest) {
-        var visitor = visitanteService.cadastrarVisitante(visitorRequest);
+    public ResponseEntity<Visitor> registerVisitor(@RequestBody Visitor visitorRequest) {
+        var visitor = visitorService.registerVisitor(visitorRequest);
         return ResponseEntity.status(CREATED).body(visitor);
     }
 
@@ -44,7 +44,7 @@ public class VisitorController {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVisitor(@PathVariable Long id) {
-        visitanteService.excluirVisitante(id);
+        visitorService.deleteVisitor(id);
         return ResponseEntity.noContent().build();
     }
 }

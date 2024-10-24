@@ -1,10 +1,11 @@
 package com.ParkCore.repository;
 
-import com.ParkCore.model.Feedback;
+import com.ParkCore.model.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
+public interface NotificationRepository extends JpaRepository<Notification, Long> {
+
 
 }

@@ -1,7 +1,7 @@
 package com.ParkCore.controller;
 
 import com.ParkCore.model.Feedback;
-import com.ParkCore.service.impl.FeedbackService;
+import com.ParkCore.service.FeedbackService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -36,6 +36,4 @@ public class FeedbackController {
 	public ResponseEntity<Feedback> provideFeedback(@RequestBody Feedback feedbackRequest) {
 		return ResponseEntity.status(201).body(feedbackService.realizarFeedback(feedbackRequest));
 	}
-	
-	
 }

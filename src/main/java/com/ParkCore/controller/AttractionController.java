@@ -1,14 +1,13 @@
 package com.ParkCore.controller;
 
-import com.ParkCore.model.Atracao;
-import com.ParkCore.service.impl.AtracaoService;
-import com.ParkCore.enums.AtracaoTipo;
+import com.ParkCore.enums.AttractionType;
+import com.ParkCore.model.Attraction;
+import com.ParkCore.service.AttractionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,21 +20,21 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RequestMapping("/attractions")
 public class AttractionController {
 
-    private final AtracaoService atracaoService;
+    private final AttractionService attractionService;
 
-    public AttractionController(AtracaoService atracaoService) {
-        this.atracaoService = atracaoService;
+    public AttractionController(AttractionService attractionService) {
+        this.attractionService = attractionService;
     }
 
     @Operation(summary = "Search for attractions")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully found attractions",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Atracao.class))),
+                            schema = @Schema(implementation = Attraction.class))),
     })
     @GetMapping
-    public ResponseEntity<List<Atracao>> listAttractions() {
-        var attractions = atracaoService.listaAtracoes();
+    public ResponseEntity<List<Attraction>> listAttractions() {
+        var attractions = attractionService.listAttractions();
         return ResponseEntity.ok(attractions);
     }
 
@@ -43,12 +42,12 @@ public class AttractionController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully found attractions",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Atracao.class))),
+                            schema = @Schema(implementation = Attraction.class))),
             @ApiResponse(responseCode = "404", description = "No attractions found for the specified type")
     })
     @GetMapping("/attractionType/{type}")
-    public ResponseEntity<List<Atracao>> getAttractionsByType(@PathVariable AtracaoTipo tipo) {
-        var attractions = atracaoService.buscarPorTipo(tipo);
+    public ResponseEntity<List<Attraction>> getAttractionsByType(@PathVariable AttractionType type) {
+        var attractions = attractionService.findByType(type);
         return ResponseEntity.ok(attractions);
     }
 
@@ -56,24 +55,24 @@ public class AttractionController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Attraction created successfully!",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Atracao.class))),
+                            schema = @Schema(implementation = Attraction.class))),
             @ApiResponse(responseCode = "400", description = "The attraction has already been registered")
     })
     @PostMapping
-    public ResponseEntity<Atracao> createAttraction(@RequestBody Atracao atracao) {
-        var attraction = atracaoService.createAtracao(atracao);
+    public ResponseEntity<Attraction> createAttraction(@RequestBody Attraction attractionRequest) {
+        var attraction = attractionService.createAttraction(attractionRequest);
         return ResponseEntity.status(CREATED).body(attraction);
     }
 
-    @Operation(summary = "Deletar atração")
+    @Operation(summary = "Delete Attraction")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Atração deletada com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Atração não encontrada"),
-            @ApiResponse(responseCode = "400", description = "Atração não pode ser deletada, pois está associada a um Evento!")
+            @ApiResponse(responseCode = "204", description = "Attraction deleted"),
+            @ApiResponse(responseCode = "404", description = "Attraction not found"),
+            @ApiResponse(responseCode = "400", description = "Attraction not deleted")
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAttraction(@PathVariable Long id) {
-        atracaoService.deleteAtracao(id);
+        attractionService.deleteAttraction(id);
         return ResponseEntity.noContent().build();
     }
 }

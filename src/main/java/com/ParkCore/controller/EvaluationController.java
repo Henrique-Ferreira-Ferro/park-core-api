@@ -1,6 +1,6 @@
 package com.ParkCore.controller;
 
-import com.ParkCore.service.impl.AvaliacaoService;
+import com.ParkCore.service.EvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/evaluation")
 public class EvaluationController {
 
-	@Autowired
-	private AvaliacaoService evaluationService;
+    @Autowired
+    private EvaluationService evaluationService;
 
 }

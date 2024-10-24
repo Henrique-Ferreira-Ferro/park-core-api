@@ -1,7 +1,7 @@
 package com.ParkCore.controller;
 
-import com.ParkCore.model.Ingresso;
-import com.ParkCore.service.impl.IngressoService;
+import com.ParkCore.model.Ticket;
+import com.ParkCore.service.TicketService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,25 +16,25 @@ import java.util.List;
 @RequestMapping("/tickets")
 public class TicketController {
 
-	private final IngressoService ingressoService;
+    private final TicketService ticketService;
 
-	public TicketController(IngressoService ingressoService) {
-		this.ingressoService = ingressoService;
-	}
+    public TicketController(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
 
-	@Operation(summary = "Issue ticket")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "201", description = "Ticket issued successfully!",
-					content = @Content(mediaType = "application/json",
-							schema = @Schema(implementation = Ingresso.class))),
-			@ApiResponse(responseCode = "404", description = "Visitor not found"),
-			@ApiResponse(responseCode = "404", description = "Attraction not found"),
-	})
-	@PostMapping
-	public ResponseEntity<Ingresso> issueTicket(@RequestBody Ingresso ticketRequest) {
-		var ticket = ingressoService.emitirIngresso(ticketRequest);
-		return ResponseEntity.ok(ticket);
-	}
+    @Operation(summary = "Issue ticket")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Ticket issued successfully!",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Ticket.class))),
+            @ApiResponse(responseCode = "404", description = "Visitor not found"),
+            @ApiResponse(responseCode = "404", description = "Attraction not found"),
+    })
+    @PostMapping
+    public ResponseEntity<Ticket> issueTicket(@RequestBody Ticket ticketRequest) {
+        var ticket = ticketService.issueTicket(ticketRequest);
+        return ResponseEntity.ok(ticket);
+    }
 
 	@Operation(summary = "Cancel ticket")
 	@ApiResponses(value = {
@@ -43,19 +43,19 @@ public class TicketController {
 	})
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> cancelTicket(@PathVariable Long id) {
-		ingressoService.cancelarIngresso(id);
+        ticketService.cancelTicket(id);
 		return  ResponseEntity.ok("Ticket canceled successfully!");
 	}
 
-	@Operation(summary = "Get tickets")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Tickets found successfully",
-					content = @Content(mediaType = "application/json",
-							schema = @Schema(implementation = Ingresso.class))),
-	})
-	@GetMapping
-	public ResponseEntity<List<Ingresso>> listTickets() {
-		var tickets = ingressoService.listarIngressos();
-		return ResponseEntity.ok(tickets);
-	}
+    @Operation(summary = "Get tickets")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Tickets found successfully",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Ticket.class))),
+    })
+    @GetMapping
+    public ResponseEntity<List<Ticket>> listTickets() {
+        var tickets = ticketService.listTickets();
+        return ResponseEntity.ok(tickets);
+    }
 }

@@ -23,11 +23,11 @@ public class HttpErrorExceptionHandler {
 
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<ApiError> notFound(ObjectNotFoundException exception) {
-        return buildErrorResponse(HttpStatus.NOT_FOUND, "Não foi possivel encontrar " + exception.getEntityName());
+        return buildErrorResponse(HttpStatus.NOT_FOUND, "Could not find " + exception.getEntityName());
     }
 
     @ExceptionHandler(ForbiddenException.class)
-    public ResponseEntity<ApiError> Forbidden(ForbiddenException exception) {
-        return buildErrorResponse(HttpStatus.FORBIDDEN, "Não há permissão para essa pagina: " + exception.getMessage());
+    public ResponseEntity<ApiError> forbidden(ForbiddenException exception) {
+        return buildErrorResponse(HttpStatus.FORBIDDEN, "No permission for this page: " + exception.getMessage());
     }
 }
