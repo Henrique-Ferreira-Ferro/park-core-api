@@ -3,7 +3,6 @@ package com.ParqueCore.ParkBeto.service.impl;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 import com.ParqueCore.ParkBeto.exceptions.BadRequestException;
@@ -17,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.ParqueCore.ParkBeto.model.Visitante;
 import com.ParqueCore.ParkBeto.repository.VisitanteRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 
