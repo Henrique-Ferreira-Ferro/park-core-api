@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import com.ParqueCore.ParkBeto.repository.IngressoRepository;
@@ -32,12 +33,13 @@ public class IngressoServiceTest {
 	@Mock
 	private AtracaoRepository atracaoRepository;
 	@InjectMocks
-	private IngressoService ingressoservice;
+	private IngressoService ingressoService;
 	@Test
 	public void deveEmitirIngressoComSucesso(){
 		var atracao = mock(Atracao.class);
 		var visitante = mock(Visitante.class);
 		var ingresso = mock(Ingresso.class);
+		var data = new Date();
 
 		given(visitante.getId()).willReturn(1L);
 		given(visitante.getNome()).willReturn("Gabby");
@@ -58,14 +60,18 @@ public class IngressoServiceTest {
 
 		given(visitanteRepository.findById(1L)).willReturn(Optional.of(visitante));
 		given(atracaoRepository.findById(1L)).willReturn(Optional.of(atracao));
+		given(ingresso.getDataEmissao()).willReturn(data);
 		given(ingressoRepository.save(any(Ingresso.class))).willReturn(ingresso);
 
-		var result = ingressoservice.emitirIngresso(ingresso);
+		given(ingressoRepository.save(any(Ingresso.class))).willReturn(ingresso);
 
-		assertEquals("Montanha Russa", result.getAtracao().getNome());
-		assertEquals("adulto", result.getTipoIngresso());
-		assertEquals("Ativo", result.getStatus());
-		assertEquals(visitante.getId(), result.getVisitante().getId());
-		assertEquals(atracao.getId(), result.getAtracao().getId());
+		var result = ingressoService.emitirIngresso(ingresso);
+
+		assertNotNull(ingresso);
+		assertEquals("Montanha Russa", ingresso.getAtracao().getNome());
+		assertEquals("adulto", ingresso.getTipoIngresso());
+		assertEquals("Ativo", ingresso.getStatus());
+		assertEquals(visitante.getId(), ingresso.getVisitante().getId());
+		assertEquals(atracao.getId(), ingresso.getAtracao().getId());
 	}
 }
