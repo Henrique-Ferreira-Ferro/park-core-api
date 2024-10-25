@@ -15,7 +15,7 @@ public class VisitorValidator {
     private VisitorRepository visitorRepository;
 
     public static void validateVisitorCpf(Visitor visitor) {
-        if (!isSsnValid(visitor.getSsn())) { // CPF is similar to SSN
+        if (!isSsnValid(visitor.getCpf())) { // CPF is similar to SSN
             throw new RuntimeException("Invalid SSN! Please enter a valid SSN!");
         }
     }
