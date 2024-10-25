@@ -1,14 +1,13 @@
 package com.ParqueCore.ParkBeto.service.impl;
 
+import com.ParqueCore.ParkBeto.repository.FeedbackRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.ParqueCore.ParkBeto.repository.FeedbackRepository;
-
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class FeedbackServiceTest {
 	
 	@Mock

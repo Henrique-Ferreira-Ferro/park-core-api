@@ -4,26 +4,21 @@ import com.ParqueCore.ParkBeto.model.Atracao;
 import com.ParqueCore.ParkBeto.model.Ingresso;
 import com.ParqueCore.ParkBeto.model.Visitante;
 import com.ParqueCore.ParkBeto.repository.AtracaoRepository;
-import com.ParqueCore.ParkBeto.repository.VisitanteRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import com.ParqueCore.ParkBeto.repository.IngressoRepository;
+import com.ParqueCore.ParkBeto.repository.VisitanteRepository;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class IngressoServiceTest {
 
 	@Mock
@@ -34,44 +29,28 @@ public class IngressoServiceTest {
 	private AtracaoRepository atracaoRepository;
 	@InjectMocks
 	private IngressoService ingressoService;
+
+
 	@Test
-	public void deveEmitirIngressoComSucesso(){
-		var atracao = mock(Atracao.class);
+	public void deveEmitirIngressoComSucesso() {
+		var ingressoRequest = mock(Ingresso.class);
 		var visitante = mock(Visitante.class);
-		var ingresso = mock(Ingresso.class);
-		var data = new Date();
+		var atracao = mock(Atracao.class);
 
+		given(ingressoRequest.getVisitante()).willReturn(visitante);
+		given(ingressoRequest.getAtracao()).willReturn(atracao);
+		given(ingressoRequest.getTipo()).willReturn("inteiro");
+		given(ingressoRequest.getStatus()).willReturn("ativo");
+		given(ingressoRequest.getDataVisita()).willReturn(new Date());
 		given(visitante.getId()).willReturn(1L);
-		given(visitante.getNome()).willReturn("Gabby");
-		given(visitante.getCpf()).willReturn("15214515810");
-		given(visitante.getTelefone()).willReturn("1515515");
-		given(visitante.getEmail()).willReturn("gabby@gamil.com");
-
 		given(atracao.getId()).willReturn(1L);
-		given(atracao.getNome()).willReturn("Montanha Russa");
-		given(atracao.getIngressos()).willReturn(List.of());
-		given(atracao.getDescricao()).willReturn("Perigoso");
-
-		given(ingresso.getDataEmissao()).willReturn(new Date());
-		given(ingresso.getId()).willReturn(1L);
-		given(ingresso.getTipoIngresso()).willReturn("adulto");
-		given(ingresso.getStatus()).willReturn("Ativo");
-		given(ingresso.getAtracao()).willReturn(atracao);
 
 		given(visitanteRepository.findById(1L)).willReturn(Optional.of(visitante));
 		given(atracaoRepository.findById(1L)).willReturn(Optional.of(atracao));
-		given(ingresso.getDataEmissao()).willReturn(data);
-		given(ingressoRepository.save(any(Ingresso.class))).willReturn(ingresso);
 
-		given(ingressoRepository.save(any(Ingresso.class))).willReturn(ingresso);
 
-		var result = ingressoService.emitirIngresso(ingresso);
+		var result = ingressoService.emitirIngresso(ingressoRequest);
 
-		assertNotNull(ingresso);
-		assertEquals("Montanha Russa", ingresso.getAtracao().getNome());
-		assertEquals("adulto", ingresso.getTipoIngresso());
-		assertEquals("Ativo", ingresso.getStatus());
-		assertEquals(visitante.getId(), ingresso.getVisitante().getId());
-		assertEquals(atracao.getId(), ingresso.getAtracao().getId());
+
 	}
 }

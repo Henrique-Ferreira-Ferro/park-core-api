@@ -1,11 +1,8 @@
 package com.ParqueCore.ParkBeto.service.impl;
 
-import static org.assertj.core.api.BDDAssertions.thenThrownBy;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
-
 import com.ParqueCore.ParkBeto.exceptions.BadRequestException;
+import com.ParqueCore.ParkBeto.model.Visitante;
+import com.ParqueCore.ParkBeto.repository.VisitanteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,10 +10,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.ParqueCore.ParkBeto.model.Visitante;
-import com.ParqueCore.ParkBeto.repository.VisitanteRepository;
-
 import java.util.Optional;
+
+import static org.assertj.core.api.BDDAssertions.thenThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 
 @ExtendWith(MockitoExtension.class)
