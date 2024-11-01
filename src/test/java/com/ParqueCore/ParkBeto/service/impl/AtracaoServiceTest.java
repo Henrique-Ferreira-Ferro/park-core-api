@@ -86,7 +86,7 @@ public class AtracaoServiceTest {
 		given(atracaoRepository.save(novaAtracao)).willReturn(novaAtracao);
 
 		// Quando: Tentamos criar uma nova atração
-		Atracao resultado = atracaoService.createAtracao(novaAtracao);
+		var resultado = atracaoService.createAtracao(novaAtracao);
 
 		// Então: O nome deve ser o nome que configuramos e único
 		assertEquals(nomeUnico, resultado.getNome());
@@ -153,7 +153,7 @@ public class AtracaoServiceTest {
 		given(atracaoRepository.findAll()).willReturn(List.of(atracao1, atracao2));
 
 		//Quando o metodo listaAtracoes é chamado
-		List<Atracao> resultado = atracaoService.listaAtracoes();
+		var resultado = atracaoService.listaAtracoes();
 		//entao verifica se o resultado contém as atracoes simuladas
 		assertEquals(2, resultado.size());//deve conter 2 atracoes
 		assertEquals(atracao1, resultado.get(0));
@@ -164,7 +164,7 @@ public class AtracaoServiceTest {
 	@Test
 	public void deveRetornarListaVaziaSeNaoTiverAtracoes() {
 		given(atracaoRepository.findAll()).willReturn(List.of());
-		List<Atracao> result = atracaoService.listaAtracoes();
+		var result = atracaoService.listaAtracoes();
 		assertTrue(result.isEmpty());
 
 	}
@@ -178,7 +178,7 @@ public class AtracaoServiceTest {
 
 		given(atracaoRepository.findByTipo(tipo)).willReturn(List.of(atracao1, atracao2));
 
-		List<Atracao> result = atracaoService.buscarPorTipo(tipo);
+		var result = atracaoService.buscarPorTipo(tipo);
 
 		assertEquals(2, result.size());
 		assertEquals(atracao1, result.get(0));
@@ -188,7 +188,7 @@ public class AtracaoServiceTest {
 	@Test
 	public void deveLancarExcecaoSeAtracaoTipoNaoEncontrada() {
 		// Cenário: Tipo de atração sem nenhuma atração associada
-		AtracaoTipo tipo = AtracaoTipo.MONTANHA_RUSSA;
+		var tipo = AtracaoTipo.MONTANHA_RUSSA;
 
 		// Simulação: O repositório retorna uma lista vazia
 		given(atracaoRepository.findByTipo(tipo)).willReturn(List.of());
@@ -206,18 +206,19 @@ public class AtracaoServiceTest {
 		Long atracaoId = 1L;
 
 		// Simulação: Atração existe
-		Atracao atracao = new Atracao();
+		var atracao = new Atracao();
 		atracao.setId(atracaoId);
 		given(atracaoRepository.findById(atracaoId)).willReturn(Optional.of(atracao));
 
 		// Simulação: Eventos associados à atração
-		List<Evento> eventos = List.of(new Evento()); // Suponha que exista um evento associado
+		var eventos = List.of(new Evento()); // Suponha que exista um evento associado
 		given(eventoRepository.findByAtracaoId(atracaoId)).willReturn(eventos); // Ajuste para o repositório certo
 
 		// Quando: Tentativa de deletar atração associada a eventos
 		assertThatThrownBy(() -> atracaoService.deleteAtracao(atracaoId))
 				.isInstanceOf(BadRequestException.class)
-				.hasMessageContaining("Erro ao deletar atração: Atração com ID " + atracaoId + " não pode ser deletada, pois está associada a um ou mais eventos.");
+				.hasMessageContaining("Erro ao deletar atração: Atração com ID " + atracaoId + " não pode ser deletada, " +
+						"pois está associada a um ou mais eventos.");
 
 		// Então: Verifica que o método deleteById não foi chamado
 		then(atracaoRepository).should(never()).deleteById(atracaoId);
@@ -229,13 +230,13 @@ public class AtracaoServiceTest {
 		Long atracaoId = 1L;
 
 		// Simulação: Atração existe
-		Atracao atracao = new Atracao();
+		var atracao = new Atracao();
 		atracao.setId(atracaoId);
 		given(atracaoRepository.findById(atracaoId)).willReturn(Optional.of(atracao));
 
 		// Simulação: Nenhum evento associado à atração
-		List<Evento> eventosVazios = Collections.emptyList(); // Não há eventos associados
-		given(eventoRepository.findByAtracaoId(atracaoId)).willReturn(eventosVazios);
+
+		given(eventoRepository.findByAtracaoId(atracaoId)).willReturn(List.of());
 
 		// Quando: Deletar atração
 		atracaoService.deleteAtracao(atracaoId);
