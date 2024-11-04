@@ -4,6 +4,7 @@ import com.ParkCore.exceptions.BadRequestException;
 import com.ParkCore.model.Visitor;
 import com.ParkCore.repository.VisitorRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,16 +36,17 @@ public class VisitorServiceTest {
         given(visitor.getEmail()).willReturn("henrique@gmail.com");
         given(visitor.getCpf()).willReturn("83735288065");
         given(visitor.getName()).willReturn("Henrique");
-        given(visitor.getPhone()).willReturn("11947542211");
+        given(visitor.getPhone()).willReturn("1234567890");
 
         given(visitorRepository.save(visitor)).willReturn(visitor);
+
         var result = visitorService.registerVisitor(visitor);
 
         assertEquals(1L, result.getId());
         assertEquals("henrique@gmail.com", result.getEmail());
         assertEquals("83735288065", result.getCpf());
         assertEquals("Henrique", result.getName());
-        assertEquals("11947542211", result.getPhone());
+        assertEquals("1234567890", result.getPhone());
 
     }
 
@@ -62,7 +64,7 @@ public class VisitorServiceTest {
 
     @Test
     void shouldThrowExceptionWhenVisitorNotFound() {
-        thenThrownBy(() -> visitorService.deleteVisitor(null)).isInstanceOf(EntityNotFoundException.class);
+        thenThrownBy(() -> visitorService.deleteVisitor(null)).isInstanceOf(ObjectNotFoundException.class);
     }
 
     @Test
