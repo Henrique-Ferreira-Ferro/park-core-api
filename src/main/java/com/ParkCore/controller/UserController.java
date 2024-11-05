@@ -23,7 +23,7 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping("/create")
-	public User CreateUser(@RequestBody User user) {
+	public User createUser(@RequestBody User user) {
 		return userService.CreateUser(user);
 	}
 

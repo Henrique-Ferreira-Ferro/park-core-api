@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.ParkCore.model.User;
+import org.springframework.security.core.userdetails.User;
 import com.ParkCore.repository.UserRepository;
 
 
@@ -20,11 +20,11 @@ public class CustomUserDetailsService implements UserDetailsService{
     private UserRepository repository;
     
 	 public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	        User user = repository.findByName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+	        var user = repository.findByName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 	       
 	        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getRole().toUpperCase());
 	        
-	        return new org.springframework.security.core.userdetails.User(
+	        return new User(
 	            user.getName(), 
 	            user.getPassword(), 
 	            Collections.singleton(authority)

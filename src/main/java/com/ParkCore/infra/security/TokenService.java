@@ -20,14 +20,15 @@ public class TokenService {
 
 	@Value("${api.security.token.secret}")
     private String secret;
+	
     public String generateToken(User user){
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            var algorithm = Algorithm.HMAC256(secret);
             
-           String role = user.getRole().getRole().toUpperCase();
+           var role = user.getRole().getRole().toUpperCase();
             		
             
-            String token = JWT.create()
+            var token = JWT.create()
                     .withIssuer("login-auth-api")
                     .withSubject(user.getName())
                     .withClaim("roles", Collections.singletonList(role))

@@ -34,9 +34,9 @@ public class AuthController {
 	
 	@PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequestDTO body){
-        User user = this.repository.findByName(body.getName()).orElseThrow(() -> new UsernameNotFoundException("Usuario não encontrado"));
+        var user = this.repository.findByName(body.getName()).orElseThrow(() -> new UsernameNotFoundException("Usuario não encontrado"));
         if(passwordEncoder.matches(body.getPassword(), user.getPassword())) {
-            String token = this.tokenService.generateToken(user);
+            var token = this.tokenService.generateToken(user);
             return ResponseEntity.ok(new ResponseDTO(user.getName(), token));
         }
         	throw new ObjectNotFoundException(user.getId(), User.class.getName());
@@ -48,7 +48,7 @@ public class AuthController {
         Optional<User> user = this.repository.findByName(body.getName());
 
         if(user.isEmpty()) {
-        	User newUser = new User();
+        	var newUser = new User();
             newUser.setName(body.getName());
             newUser.setPassword(passwordEncoder.encode(body.getPassword()));
             //In this phase, it's interesting to use Flyway.
