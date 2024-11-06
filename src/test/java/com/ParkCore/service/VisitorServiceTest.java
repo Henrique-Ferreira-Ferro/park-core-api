@@ -36,7 +36,7 @@ public class VisitorServiceTest {
         given(visitor.getEmail()).willReturn("henrique@gmail.com");
         given(visitor.getCpf()).willReturn("83735288065");
         given(visitor.getName()).willReturn("Henrique");
-        given(visitor.getPhone()).willReturn("1234567890");
+        given(visitor.getPhone()).willReturn("(11) 93865-4255");
 
         given(visitorRepository.save(visitor)).willReturn(visitor);
 
@@ -46,7 +46,7 @@ public class VisitorServiceTest {
         assertEquals("henrique@gmail.com", result.getEmail());
         assertEquals("83735288065", result.getCpf());
         assertEquals("Henrique", result.getName());
-        assertEquals("1234567890", result.getPhone());
+        assertEquals("(11) 93865-4255", result.getPhone());
 
     }
 
