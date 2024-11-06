@@ -23,7 +23,7 @@ public class Visitor {
     @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL)
     private List<Feedback> feedbacks;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL)
     private List<Notification> notifications;
 
     @ManyToMany
