@@ -39,7 +39,7 @@ public class EmployeeServiceTest {
 
         var existingEmployee = mock(Employee.class);
         given(existingEmployee.getId()).willReturn(1L);
-        given(existingEmployee.getName()).willReturn("Henrique F");
+        given(existingEmployee.getName()).willReturn("Henrique f");
         given(existingEmployee.getPosition()).willReturn("Assistant");
         given(existingEmployee.getWorkingHours()).willReturn(55);
         given(employeeRepository.save(existingEmployee)).willReturn(existingEmployee);
@@ -47,8 +47,7 @@ public class EmployeeServiceTest {
         given(employeeRepository.findById(1L)).willReturn(Optional.of(existingEmployee));
 
         var modifiedEmployee = mock(Employee.class);
-        given(modifiedEmployee.getId()).willReturn(1L);
-        given(modifiedEmployee.getName()).willReturn("Henrique");
+        given(modifiedEmployee.getName()).willReturn("Henrique f");
         given(modifiedEmployee.getPosition()).willReturn("Assistant");
         given(modifiedEmployee.getWorkingHours()).willReturn(55);
 
@@ -56,7 +55,7 @@ public class EmployeeServiceTest {
 
         var result = employeeService.updateEmployee(1L, modifiedEmployee);
         assertEquals(1L, result.getId());
-        assertEquals("Henrique", result.getName());
+        assertEquals("Henrique f", result.getName());
         assertEquals("Assistant", result.getPosition());
         assertEquals(55, result.getWorkingHours());
     }
