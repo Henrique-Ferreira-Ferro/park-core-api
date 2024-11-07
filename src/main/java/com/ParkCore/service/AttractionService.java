@@ -27,7 +27,7 @@ public class AttractionService {
         return !attractionRepository.existsByName(name);
     }
 
-    private boolean hasAssociatedEvents(Long id) {
+    public boolean hasAssociatedEvents(Long id) {
         return !eventRepository.findByAttractionId(id).isEmpty();
     }
 
