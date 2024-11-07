@@ -22,6 +22,10 @@ public class Notification {
     private Employee employee;
 
     @ManyToOne
+    @JoinColumn(name = "visitor_id", nullable = false)
+    private Visitor visitor;
+
+    @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 }

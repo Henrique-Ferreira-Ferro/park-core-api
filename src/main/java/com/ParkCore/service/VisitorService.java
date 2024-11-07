@@ -3,6 +3,7 @@ package com.ParkCore.service;
 import com.ParkCore.exceptions.BadRequestException;
 import com.ParkCore.model.Visitor;
 import com.ParkCore.repository.VisitorRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import static com.ParkCore.validation.VisitorValidator.validateVisitorCpf;
@@ -25,7 +26,7 @@ public class VisitorService {
 
     public void deleteVisitor(Long visitorId) {
         var visitor = visitorRepository.findById(visitorId)
-                .orElseThrow(() -> new BadRequestException("Visitor not found"));
+                .orElseThrow(() -> new ObjectNotFoundException("Visitor not found", Visitor.class));
 
         checkDeletion(visitorId);
 
