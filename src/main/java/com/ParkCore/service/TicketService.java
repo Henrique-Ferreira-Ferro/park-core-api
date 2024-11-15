@@ -1,5 +1,6 @@
 package com.ParkCore.service;
 
+import com.ParkCore.exceptions.BadRequestException;
 import com.ParkCore.model.Attraction;
 import com.ParkCore.model.Ticket;
 import com.ParkCore.model.Visitor;
@@ -48,10 +49,10 @@ public class TicketService {
 
 	public void cancelTicket(Long id) {
 		var ticket = ticketRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Ticket not found"));
+				.orElseThrow(() -> new ObjectNotFoundException("Ticket not found",Ticket.class));
 
 		if (!ticket.getStatus().equals("active")) {
-			throw new RuntimeException("Ticket cannot be canceled");
+			throw new BadRequestException("Ticket cannot be canceled");
 		}
 		ticket.setStatus("canceled");
 		ticketRepository.save(ticket);
