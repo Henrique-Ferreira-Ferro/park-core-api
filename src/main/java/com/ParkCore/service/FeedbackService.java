@@ -53,7 +53,7 @@ public class FeedbackService {
 			@JoinColumn(name = "id_atracion", referencedColumnName = "id_atracion")
 			private Attraction attraction;
 
-			@Column(name = "text_avaliacion", length = 1000)
+			@Column(name = "text avaliacion", length = 1000)
 			private String textoAvaliacao;
 
 			@Column(name = "classificacion")
