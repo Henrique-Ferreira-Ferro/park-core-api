@@ -5,6 +5,7 @@ import com.ParkCore.model.Notification;
 import com.ParkCore.model.Visitor;
 import com.ParkCore.repository.EventRepository;
 import com.ParkCore.repository.NotificationRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import static com.ParkCore.enums.NotificationStatus.SENT;
@@ -27,7 +28,7 @@ public class NotificationService {
 		var event = eventRepository.findById(eventId);
 
 		if (event.isEmpty()) {
-			return "Event not found";
+			throw new ObjectNotFoundException("Event not found", Event.class);
 		}
 
 		String message = "You have been notified about the event: " + event.get().getName();
