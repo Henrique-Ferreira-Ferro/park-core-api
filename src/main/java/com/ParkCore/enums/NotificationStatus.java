@@ -11,6 +11,10 @@ public enum NotificationStatus {
         this.status = status;
     }
 
+    public static NotificationStatus SENT(String s) {
+        return null;
+    }
+
     public String getStatus() {
         return status;
     }
