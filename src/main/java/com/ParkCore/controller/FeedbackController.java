@@ -34,6 +34,6 @@ public class FeedbackController {
 	})
 	@PostMapping("/evaluate")
 	public ResponseEntity<Feedback> provideFeedback(@RequestBody Feedback feedbackRequest) {
-		return ResponseEntity.status(201).body(feedbackService.realizarFeedback(feedbackRequest));
+		return ResponseEntity.status(201).body(feedbackService.sendFeedback(feedbackRequest));
 	}
 }

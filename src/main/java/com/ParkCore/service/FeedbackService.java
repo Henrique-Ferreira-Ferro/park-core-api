@@ -1,10 +1,10 @@
 package com.ParkCore.service;
 
-import com.ParkCore.exceptions.BadRequestException;
 import com.ParkCore.model.Feedback;
 import com.ParkCore.repository.FeedbackRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import static com.ParkCore.validation.FeedbackValidator.validateFeedback;
 
 @Service
 public class FeedbackService {
@@ -15,16 +15,10 @@ public class FeedbackService {
 		this.feedbackRepository = feedbackRepository;
 	}
 
-	@Transactional
-	public Feedback realizarFeedback(Feedback feedback) {
-		validarFeedback(feedback);
+	public Feedback sendFeedback(Feedback feedback) {
+		validateFeedback(feedback);
 
 		return feedbackRepository.save(feedback);
 	}
 
-	private void validarFeedback(Feedback feedback) {
-		if (feedback.getComment() == null || feedback.getComment().isEmpty()) {
-			throw new BadRequestException("O comentário do feedback não pode ser vazio.");
-		}
-	}
 }
