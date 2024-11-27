@@ -21,8 +21,4 @@ public class Feedback {
     @ManyToOne
     @JoinColumn(name = "attraction_id")
     private Attraction attraction;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "evaluation_id", referencedColumnName = "id")
-    private Evaluation evaluation;
 }
