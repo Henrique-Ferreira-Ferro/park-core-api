@@ -21,9 +21,9 @@ public class CepController {
 	@Autowired
 	private CepService cepService;
 	
-	@GetMapping("/address/{cep}")
-	public ResponseEntity<CepResponseDTO> getAddress(@PathVariable("cep") String cep){
-		CepResponseDTO response = cepService.getCep(cep);
+	@GetMapping("/address")
+	public ResponseEntity<CepResponseDTO> getAddress(@RequestParam("cep") String cep, @RequestParam String country){
+		var response = cepService.getCep(cep, country);
 		return new ResponseEntity<CepResponseDTO>(response, HttpStatus.OK); 
 	}
 	

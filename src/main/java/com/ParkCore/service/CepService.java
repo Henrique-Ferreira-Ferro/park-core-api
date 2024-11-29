@@ -1,5 +1,6 @@
 package com.ParkCore.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,12 +12,21 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class CepService {
 	
-	public CepResponseDTO getCep(String Cep) {
+	
+	ZipCodeStackApi zipCodeStackApi;
+	
+	@Value("${zipcode.api.key}")
+	String apikey;
+	
+	
+	public CepResponseDTO getCep(String Cep, String country) {
 		
-		RestTemplate restTemplate = new RestTemplate();
-		String UrlApi = "https://api.zipcodestack.com/v1/search?codes="+Cep+"&country=br&apikey=01JD77444HGRAJ7SBTXB699VRP";
-		CepResponseDTO response = restTemplate.getForObject(UrlApi, CepResponseDTO.class);
-		return response;
+		try {
+			return zipCodeStackApi.getLocation(Cep, country, apikey);
+		}catch(RuntimeException e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 	
 	
